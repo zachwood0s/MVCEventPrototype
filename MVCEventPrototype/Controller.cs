@@ -12,15 +12,15 @@ namespace MVCEventPrototype
         public Controller()
         {
             AddRouting(typeof(DisplayEvent));
-
-            AddEventListener(typeof(TestEvent), (TestEvent e) =>
-            {
-                Console.WriteLine(e.Message);
-                Console.WriteLine("type events work?");
-                return Error.None;
-            });
         }
 
+        [EventListenerAttr(typeof(TestEvent))]
+        private Error TypeTestingEvent(TestEvent e)
+        {
+            Console.WriteLine(e.Message);
+            Console.WriteLine("type events with magic work?");
+            return Error.None;
+        }
 
         [EventListenerAttr("test4")]
         private Error TestEvent(TestEvent e)

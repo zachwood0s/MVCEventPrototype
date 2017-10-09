@@ -7,3 +7,6 @@ Z:\Documents\Visual Studio 2015\Projects\MVCEventPrototype\MVCEventPrototype\obj
 C:\Users\zach\Source\Repos\MVCEventPrototype\MVCEventPrototype\bin\Debug\MVCEventPrototype.exe.config
 C:\Users\zach\Source\Repos\MVCEventPrototype\MVCEventPrototype\obj\Debug\MVCEventPrototype.exe
 C:\Users\zach\Source\Repos\MVCEventPrototype\MVCEventPrototype\obj\Debug\MVCEventPrototype.pdb
+C:\Users\zach\Source\Repos\MVCEventPrototype\MVCEventPrototype\bin\Debug\MVCEventPrototype.exe
+C:\Users\zach\Source\Repos\MVCEventPrototype\MVCEventPrototype\bin\Debug\MVCEventPrototype.pdb
+C:\Users\zach\Source\Repos\MVCEventPrototype\MVCEventPrototype\obj\Debug\MVCEventPrototype.csprojResolveAssemblyReference.cache

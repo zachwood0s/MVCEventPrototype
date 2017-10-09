@@ -104,18 +104,40 @@ namespace MVCEventPrototype
             foreach(var method in methods)
             {
                 EventListenerAttr attr = method.GetCustomAttribute<EventListenerAttr>();
-                string eventName = attr.Name;
-
                 var pars = method.GetParameters();
                 if (pars[0] != null)
                 {
                     Type typeArgument = pars[0].ParameterType;
+                    if (attr.Name != null)
+                    {
+                        Action<MethodInfo, string> genMethod = CreateAttributedListener<IEvent>;
+                        MethodInfo callMethod = GetType().GetMethod(
+                            genMethod.Method.Name, 
+                            BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, 
+                            null, 
+                            new[] { typeof(MethodInfo), typeof(string) },
+                            null
+                        );
+                        MethodInfo generic = callMethod.MakeGenericMethod(typeArgument);
 
-                    Action<MethodInfo, string> genMethod = CreateAttributedListener<IEvent>;
-                    MethodInfo callMethod = GetType().GetMethod(genMethod.Method.Name, BindingFlags.Public | BindingFlags.NonPublic| BindingFlags.Instance);
-                    MethodInfo generic = callMethod.MakeGenericMethod(typeArgument);
-                    generic.Invoke(this, new object[] { method, eventName });
+                        generic.Invoke(this, new object[] { method, attr.Name });
+                    }
+                    else
+                    {
+                        Action<MethodInfo, Type> genMethod = CreateAttributedListener<IEvent>;
+                        MethodInfo callMethod = GetType().GetMethod(
+                            genMethod.Method.Name, 
+                            BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance,
+                            null, 
+                            new[] { typeof(MethodInfo), typeof(Type) },
+                            null
+                        );
+                        MethodInfo generic = callMethod.MakeGenericMethod(typeArgument);
+
+                        generic.Invoke(this, new object[] { method, attr.Type });
+                    }
                 }
+                
             }
             Debug.WriteLine(methods); 
         }
@@ -126,6 +148,14 @@ namespace MVCEventPrototype
 
             var newListener = (EventListener<T> )Delegate.CreateDelegate(constructedListener, this, method);
             AddEventListener(eventName, newListener);
+        }
+        protected void CreateAttributedListener<T>(MethodInfo method, Type eventType) where T: IEvent
+        {
+            Type genericListener = typeof(EventListener<>);
+            Type constructedListener = genericListener.MakeGenericType(typeof(T));
+
+            var newListener = (EventListener<T> )Delegate.CreateDelegate(constructedListener, this, method);
+            AddEventListener(eventType, newListener);
         }
 
         /********************************/
@@ -244,14 +274,23 @@ namespace MVCEventPrototype
     public class EventListenerAttr : System.Attribute
     {
         private string _name;
+        private Type _type;
         public string Name
         {
             get { return _name; }
+        }
+        public Type Type
+        {
+            get { return _type; }
         }
 
         public EventListenerAttr(string name)
         {
             _name = name;
+        }
+        public EventListenerAttr(Type type)
+        {
+            _type = type;
         }
     }
 }

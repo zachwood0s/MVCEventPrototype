@@ -10,3 +10,5 @@ C:\Users\zach\Source\Repos\MVCEventPrototype\MVCEventPrototype\obj\Debug\MVCEven
 C:\Users\zach\Source\Repos\MVCEventPrototype\MVCEventPrototype\bin\Debug\MVCEventPrototype.exe
 C:\Users\zach\Source\Repos\MVCEventPrototype\MVCEventPrototype\bin\Debug\MVCEventPrototype.pdb
 C:\Users\zach\Source\Repos\MVCEventPrototype\MVCEventPrototype\obj\Debug\MVCEventPrototype.csprojResolveAssemblyReference.cache
+C:\Users\zach\Source\Repos\MVCEventPrototype\MVCEventPrototype\bin\Debug\MVCEventSystem.dll
+C:\Users\zach\Source\Repos\MVCEventPrototype\MVCEventPrototype\bin\Debug\MVCEventSystem.pdb

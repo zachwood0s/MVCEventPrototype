@@ -3,24 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using MVCEventSystem;
 namespace MVCEventPrototype
 {
-    class OutputView:EventHandler
+    class OutputView:MVCEventSystem.EventHandler
     {
-        public OutputView()
+        [EventListenerAttr("output")]
+        private Error OutputListener(IEvent e)
         {
+            Console.WriteLine("out put was triggered");
+            return Error.None;
+        }
 
-            AddEventListener("output", (e) =>
-            {
-                Console.WriteLine("Output event was triggered");
-                return Error.None;
-            });
-            AddEventListener("routingTest", (DisplayEvent e) =>
-            {
-                Console.WriteLine("routingWorked");
-                return Error.None;
-            });
+        [EventListenerAttr("routingTest")]
+        private Error RoutingTest(DisplayEvent e)
+        {
+            Console.WriteLine("routing worked");
+            return Error.None;
         }
     }
 }

@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
+using MVCEventSystem;
+
 namespace MVCEventPrototype
 {
     class Controller: Broadcaster

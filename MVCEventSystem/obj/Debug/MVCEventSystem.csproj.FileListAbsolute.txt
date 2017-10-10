@@ -1,0 +1,5 @@
+C:\Users\zach\Source\Repos\MVCEventPrototype\MVCEventSystem\bin\Debug\MVCEventSystem.dll
+C:\Users\zach\Source\Repos\MVCEventPrototype\MVCEventSystem\bin\Debug\MVCEventSystem.pdb
+C:\Users\zach\Source\Repos\MVCEventPrototype\MVCEventSystem\obj\Debug\MVCEventSystem.csprojResolveAssemblyReference.cache
+C:\Users\zach\Source\Repos\MVCEventPrototype\MVCEventSystem\obj\Debug\MVCEventSystem.dll
+C:\Users\zach\Source\Repos\MVCEventPrototype\MVCEventSystem\obj\Debug\MVCEventSystem.pdb

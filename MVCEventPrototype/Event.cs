@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MVCEventSystem;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -8,17 +9,17 @@ using System.Threading.Tasks;
 
 namespace MVCEventPrototype
 {
-    delegate Error EventListener<T>(T e) where T:IEvent;
-    delegate Error EventListener(IEvent e);
-    interface IEvent
+    //delegate Error EventListener<T>(T e) where T:IEvent;
+    //delegate Error EventListener(IEvent e);
+   /* interface IEvent
     {
         string Type
         {
             get; 
         }
-    }
+    }*/
     
-    class DisplayEvent: IEvent
+    public class DisplayEvent: IEvent
     {
         private string _type;
         public string Type
@@ -30,7 +31,7 @@ namespace MVCEventPrototype
             _type = type;
         }
     }
-    class TestEvent: IEvent
+    public class TestEvent: IEvent
     {
         private string _message;
 
@@ -49,7 +50,7 @@ namespace MVCEventPrototype
             _message = message;
         }
     }
-
+    /*
     class Error
     {
         private string _message;
@@ -93,7 +94,7 @@ namespace MVCEventPrototype
 
         /********************************/
         /*          MAGIC STUFF         */
-        /********************************/
+        /*******************************
         private void LoadAttributedListeners()
         {
             var methods = GetType()
@@ -160,7 +161,7 @@ namespace MVCEventPrototype
 
         /********************************/
         /*          END MAGIC           */
-        /********************************/
+        /*******************************
 
         protected void AddEventListener(string name, EventListener e)
         { 
@@ -292,6 +293,6 @@ namespace MVCEventPrototype
         {
             _type = type;
         }
-    }
+    }*/
 }
 

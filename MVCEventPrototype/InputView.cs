@@ -9,8 +9,8 @@ namespace MVCEventPrototype
 {
     class InputView
     {
-        private EventListener _eventHandler;
-        public InputView(EventListener e)
+        private EventListener<Error> _eventHandler;
+        public InputView(EventListener<Error> e)
         {
             _eventHandler = e;
         }

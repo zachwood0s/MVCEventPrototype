@@ -9,7 +9,7 @@ using MVCEventSystem;
 
 namespace MVCEventPrototype
 {
-    class Controller: Broadcaster
+    class Controller: Broadcaster<Error>
     {
         public Controller()
         {

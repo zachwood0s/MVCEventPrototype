@@ -7,26 +7,26 @@ using System.Threading.Tasks;
 
 namespace MVCEventSystem
 {
-    public class Broadcaster: EventHandler
+    public class Broadcaster<U>: EventHandler<U> where U: IEventReturn, new()
     {
-        List<EventListener> _registry;
+        List<EventListener<U>> _registry;
         List<Type> _routings;
         public Broadcaster()
         {
             _routings = new List<Type>();
-            _registry = new List<EventListener>();
+            _registry = new List<EventListener<U>>();
         }
-        public void RegisterListener(EventListener e)
+        public void RegisterListener(EventListener<U> e)
         {
             _registry.Add(e);
         }
-        public void RegisterListener<T>(EventListener<T> e) where T :IEvent
+        public void RegisterListener<T>(EventListener<T, U> e) where T :IEvent
         {
             _registry.Add(Utils.WrapGenericEventListener(e));
         }
         public void Broadcast(IEvent e)
         {
-            foreach(EventListener listener in _registry)
+            foreach(EventListener<U> listener in _registry)
             {
                 listener(e);
             }
@@ -37,12 +37,12 @@ namespace MVCEventSystem
             _routings.Add(t);
         }
 
-        public override Error EventHandle<T>(T e)
+        public override U EventHandle<T>(T e)
         {
             if (_routings.Contains(e.GetType()))
             {
                 Broadcast(e);
-                return Error.None;
+                return (U) new U().Default;
             }
             else
             {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using MVCEventSystem;
 namespace MVCEventPrototype
 {
-    class OutputView:MVCEventSystem.EventHandler
+    class OutputView:MVCEventSystem.EventHandler<Error>
     {
         [EventListenerAttr("output")]
         private Error OutputListener(IEvent e)

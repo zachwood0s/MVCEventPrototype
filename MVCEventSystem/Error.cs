@@ -6,12 +6,16 @@ using System.Threading.Tasks;
 
 namespace MVCEventSystem
 {
-    public class Error
+    public class Error: IEventReturn
     {
         private string _message;
         private bool _errorOccured;
         public static Error None = new Error();
 
+        public IEventReturn Default
+        {
+            get { return None; }
+        }
         public string Message
         {
             get { return _message; }

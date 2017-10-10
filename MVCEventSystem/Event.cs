@@ -6,11 +6,18 @@ using System.Threading.Tasks;
 
 namespace MVCEventSystem
 {
-    public delegate Error EventListener<T>(T e) where T : IEvent;
-    public delegate Error EventListener(IEvent e);
+    public delegate U EventListener<T, U>(T e) where T : IEvent;
+    public delegate U EventListener<U>(IEvent e) where U :IEventReturn;
     public interface IEvent
     {
         string Type
+        {
+            get;
+        }
+    }
+    public interface IEventReturn
+    {
+        IEventReturn Default
         {
             get;
         }

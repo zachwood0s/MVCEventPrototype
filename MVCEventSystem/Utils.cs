@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MVCEventSystem;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace MVCEventSystem
 {
     class Utils
     {
-        public static EventListener WrapGenericEventListener<T>(EventListener<T> e) where T : IEvent
+        public static EventListener<U> WrapGenericEventListener<T, U>(EventListener<T, U> e) where T : IEvent where U:IEventReturn, new()
         {
             return (IEvent evt) =>
             {
@@ -20,7 +21,7 @@ namespace MVCEventSystem
                 else
                 {
                     Debug.WriteLine("--WARNING--: Event was called with incorrect event type. {0} used but {1} needed", evt.GetType(), typeof(T));
-                    return Error.None;
+                    return (U) new U().Default;
                 }
             };
         }

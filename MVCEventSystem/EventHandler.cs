@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace MVCEventSystem
 {
-    public class EventHandler
+    public class EventHandler<U> where U:IEventReturn, new()
     {
-        private Dictionary<string, EventListener> _handlers;
-        private Dictionary<Type, EventListener> _typeHandlers;
+        private Dictionary<string, EventListener<U>> _handlers;
+        private Dictionary<Type, EventListener<U>> _typeHandlers;
 
         public EventHandler()
         {
-            _handlers = new Dictionary<string, EventListener>();
-            _typeHandlers = new Dictionary<Type, EventListener>();
+            _handlers = new Dictionary<string, EventListener<U>>();
+            _typeHandlers = new Dictionary<Type, EventListener<U>>();
             LoadAttributedListeners();
         }
 
@@ -72,18 +72,18 @@ namespace MVCEventSystem
         }
         protected void CreateAttributedListener<T>(MethodInfo method, string eventName) where T: IEvent
         {
-            Type genericListener = typeof(EventListener<>);
-            Type constructedListener = genericListener.MakeGenericType(typeof(T));
+            Type genericListener = typeof(EventListener<,>);
+            Type constructedListener = genericListener.MakeGenericType(typeof(T), typeof(U));
 
-            var newListener = (EventListener<T> )Delegate.CreateDelegate(constructedListener, this, method);
+            var newListener = (EventListener<T, U> )Delegate.CreateDelegate(constructedListener, this, method);
             AddEventListener(eventName, newListener);
         }
         protected void CreateAttributedListener<T>(MethodInfo method, Type eventType) where T: IEvent
         {
-            Type genericListener = typeof(EventListener<>);
-            Type constructedListener = genericListener.MakeGenericType(typeof(T));
+            Type genericListener = typeof(EventListener<,>);
+            Type constructedListener = genericListener.MakeGenericType(typeof(T), typeof(U));
 
-            var newListener = (EventListener<T> )Delegate.CreateDelegate(constructedListener, this, method);
+            var newListener = (EventListener<T, U> )Delegate.CreateDelegate(constructedListener, this, method);
             AddEventListener(eventType, newListener);
         }
 
@@ -91,31 +91,31 @@ namespace MVCEventSystem
         /*          END MAGIC           */
         /********************************/
 
-        protected void AddEventListener(string name, EventListener e)
+        protected void AddEventListener(string name, EventListener<U> e)
         { 
             _handlers.Add(name,  e); 
         }
-        protected void AddEventListener<T>(string name, EventListener<T> listener) where T : IEvent
+        protected void AddEventListener<T>(string name, EventListener<T, U> listener) where T : IEvent
         {
             _handlers.Add(name, Utils.WrapGenericEventListener(listener));
         } 
 
-        protected void AddEventListener<T>(Type type, EventListener<T> listener) where T: IEvent
+        protected void AddEventListener<T>(Type type, EventListener<T, U> listener) where T: IEvent
         {
             _typeHandlers.Add(type, Utils.WrapGenericEventListener(listener));
         }
-        public virtual Error EventHandle<T>(T e) where T: IEvent
+        public virtual U EventHandle<T>(T e) where T: IEvent
         {
             if (_handlers.ContainsKey(e.Type))
             {
-                Error result = _handlers[e.Type](e);
-                if (result != Error.None) return result;
+                IEventReturn result = _handlers[e.Type](e);
+                if (result != result.Default) return (U)result;
             }
             if (_typeHandlers.ContainsKey(e.GetType()))
             {
                 return _typeHandlers[e.GetType()](e);
             }
-            return Error.None;
+            return (U) new U().Default;
         }
 
     }

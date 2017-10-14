@@ -19,7 +19,7 @@ namespace ExampleNumberGame
             InitializeComponent();
             _listener = l;
 
-            uxTextbox.Text = "Type an int in range 0..10";
+            uxOutputLabel.Text = "Type an int in range 0..10";
         }
 
         private void uxOKButton_Click(object sender, EventArgs e)

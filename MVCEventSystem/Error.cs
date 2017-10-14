@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace MVCEventSystem
 {
+    /// <summary>
+    /// A simple error implmentation using IEventReturn
+    /// </summary>
     public class Error: IEventReturn
     {
         private string _message;

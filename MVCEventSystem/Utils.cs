@@ -10,6 +10,15 @@ namespace MVCEventSystem
 {
     class Utils
     {
+        /// <summary>
+        /// A simple lambda wrapper that allows an event listener with any parameter type, T, to be added to the _handlers list which is only for
+        /// Event listeners of type IEvent. This is required because of a variance problem I had with my delegates. The parameter types in a delegate are covariant
+        /// meaning they can be cast to less specific therefore a lamda wrapper was required.
+        /// </summary>
+        /// <typeparam name="T">The type of the parameter for the event listener</typeparam>
+        /// <typeparam name="U">The return type for the event listener being added</typeparam>
+        /// <param name="e">The event listener to wrap</param>
+        /// <returns>An event listener with parameter type of IEvent, which allows it to be added to the _handlers array</returns>
         public static EventListener<U> WrapGenericEventListener<T, U>(EventListener<T, U> e) where T : IEvent where U:IEventReturn, new()
         {
             return (IEvent evt) =>
@@ -26,6 +35,9 @@ namespace MVCEventSystem
             };
         }
     }
+    /// <summary>
+    /// A simple attribute class that can either have a name or a type
+    /// </summary>
     public class EventListenerAttr : System.Attribute
     {
         private string _name;

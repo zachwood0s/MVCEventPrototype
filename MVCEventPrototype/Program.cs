@@ -14,7 +14,7 @@ namespace MVCEventPrototype
             InputView i = new InputView(c.EventHandle);
             OutputView o = new OutputView();
 
-            c.RegisterListener(o.EventHandle);
+            c.RegisterObserver(o.EventHandle);
             i.Start();
 
             Console.ReadKey();

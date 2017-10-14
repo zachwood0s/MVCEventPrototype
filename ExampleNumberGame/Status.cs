@@ -23,7 +23,7 @@ namespace ExampleNumberGame
         }
 
 
-        private IEventReturn _default = null; 
+        private static IEventReturn _default = new Status(); 
         public IEventReturn Default
         {
             get { return _default; }

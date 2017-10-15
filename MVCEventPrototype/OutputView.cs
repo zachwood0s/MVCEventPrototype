@@ -19,6 +19,10 @@ namespace MVCEventPrototype
         private Error RoutingTest(DisplayEvent e)
         {
             Console.WriteLine("routing worked");
+            AddEventListener("helloWorld", (evt) =>
+            {
+                return Error.None;
+            });
             return Error.None;
         }
     }
